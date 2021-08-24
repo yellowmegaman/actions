@@ -11,6 +11,6 @@ jobs:
         uses: actions/checkout@master
       - name: get latest gitops tag
         run: |
-           curl -s -H "authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" -X GET "https://api.github.com/repos/worldr/gitops/tags" | jq -r '.[0].name'
+           curl -s -H "authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" -X GET "https://api.github.com/repos/worldr/gitops/tags" | jq
       - name: set tag env
         run:  for i in $REPOS; do echo $i; done
