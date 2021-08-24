@@ -1,0 +1,16 @@
+name: release-deployment
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  gcs-release:
+    name: release
+    runs-on: ubuntu-latest
+    env:
+      REPOS: [a b c d]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@master
+      - name: set tag env
+        run:  for i in $REPOS; do echo $i; done
