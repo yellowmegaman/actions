@@ -16,3 +16,6 @@ jobs:
         run:  for i in $REPOS; do echo $i; done
       - name: env
         run:  env | sort
+      - name: conditional
+        if:   endsWith(github.ref, 'master') == true
+        run:  echo "yay"
