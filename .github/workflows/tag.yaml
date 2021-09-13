@@ -5,19 +5,13 @@ jobs:
     name: release
     runs-on: ubuntu-latest
     env:
-      REPOS: a b c d
+      GO111MODULE: auto
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: get latest gitops tag
-        run: |
-           curl -s -H "authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" -X GET "https://api.github.com/repos/$GITHUB_REPOSITORY/tags" | jq
-      - name: set tag env
-        run:  for i in $REPOS; do echo $i; done
-      - name: env
-        run:  env | sort
-      - name: conditional
-        if:   endsWith(github.ref, 'master') == true
-        run:  echo "yay"
-      - name: check gcloud
-        run:  gcloud version
+      - name: semverbump
+        run:  |
+          go get github.com/coreos/go-semver
+          go run tools/bump.go 1.2.4 patch
+          go run tools/bump.go 1.2.4 minor
+          go run tools/bump.go 1.2.4 major
