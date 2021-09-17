@@ -1,5 +1,9 @@
 name: release-deployment
-on: repository_dispatch
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
   gcs-release:
     name: release
@@ -9,9 +13,14 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: semverbump
+      - name: plan
         run:  |
           go get github.com/coreos/go-semver
           go run tools/bump.go 1.2.4 patch
           go run tools/bump.go 1.2.4 minor
           go run tools/bump.go 1.2.4 major
+      - name: debug
+        run: echo ${{github.ref}}
+      - name: apply
+        if:  ${{ github.ref == 'refs/heads/master'}}
+        run: echo "apply!"
