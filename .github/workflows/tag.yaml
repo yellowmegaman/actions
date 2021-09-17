@@ -22,5 +22,5 @@ jobs:
       - name: debug
         run: echo ${{github.ref}}
       - name: apply
-        if:  ${{ github.ref == 'refs/heads/master'}}
+        if:  ${{ github.ref == 'refs/heads/main'}}
         run: echo "apply!"
