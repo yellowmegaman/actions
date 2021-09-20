@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GO111MODULE: auto
-      K3S_TOKEN: "SECRET"
-      INSTALL_K3S_EXEC: "server --disable=traefik --disable=servicelb --write-kubeconfig-mode=0644"
     steps:
       - name: checkout code
         uses: actions/checkout@master
