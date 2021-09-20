@@ -26,7 +26,7 @@ jobs:
         uses: ./gitops/actions/k3s-gha
         with:
           custom_registry: false
-          k3s_tag: "v1.21.1+k3s1"
+          k3s_tag: "latest"
           kubectl_version: "v1.22.2"
       - name: try to use kubeconfig
         run: kubectl get ns
