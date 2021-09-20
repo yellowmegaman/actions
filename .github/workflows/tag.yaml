@@ -23,7 +23,7 @@ jobs:
       - name: check gitops
         run: ls gitops
       - name: Run my private action
-        uses: actions/k3s-gha
+        uses: ./gitops/actions/k3s-gha
         with:
           custom_registry: true
       - name: try to use kubeconfig
