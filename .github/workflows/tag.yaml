@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.DELETE_ME }}
       - name: check gitops
         run: ls gitops
-      - name: Run my private action
+      - name: run k3s
         uses: ./gitops/actions/k3s-gha
         with:
           k3s_version: "v1.22.2-rc1+k3s1"
