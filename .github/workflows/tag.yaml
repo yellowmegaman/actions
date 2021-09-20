@@ -24,8 +24,6 @@ jobs:
         run: ls gitops
       - name: k3s
         uses: yellowmegaman/k3s-gha@master
-        with:
-          custom_registry: true
       - name: Run my private action
         uses: ./gitops/actions/k3s-gha
         with:
