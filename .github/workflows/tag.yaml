@@ -11,6 +11,9 @@ jobs:
     env:
       GO111MODULE: auto
       KUBECONFIG: k3s.yaml
+      INSTALL_K3S_VERSION: "v1.21.1+k3s1"
+      K3S_TOKEN: "SECRET"
+      INSTALL_K3S_EXEC: "server --disable=traefik --disable=servicelb --write-kubeconfig-mode=0644"
     steps:
       - name: checkout code
         uses: actions/checkout@master
@@ -24,12 +27,12 @@ jobs:
         run: ls gitops
       - name: Run my private action
         uses: ./gitops/actions/k3s-gha
-        with:
-          custom_registry: false
-          k3s_tag: "latest"
-          kubectl_version: "v1.22.2"
-      - name: try to use kubeconfig
-        run: kubectl get ns
+#       with:
+#         custom_registry: false
+#         k3s_tag: "latest"
+#         kubectl_version: "v1.22.2"
+#     - name: try to use kubeconfig
+#       run: kubectl get ns
       - name: plan
         run:  |
           go get github.com/coreos/go-semver
