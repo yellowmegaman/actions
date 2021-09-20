@@ -28,7 +28,7 @@ jobs:
         uses: ./gitops/actions/k3s-gha
         with:
           repo: emik0
-#         k3s_version: "v1.22.2-rc1-k3s1"
+          k3s_version: "v1.22.2-rc1-k3s1"
       - name: plan
         run:  |
           go get github.com/coreos/go-semver
