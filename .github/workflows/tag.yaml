@@ -13,6 +13,14 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
+      - name: checkout gitops repo
+        uses: actions/checkout@v2
+        with:
+          repository: worldr/gitops
+          path: gitops
+          token: ${{ secrets.DELETE_ME }}
+      - name: check gitops
+        run: ls gitops
       - name: plan
         run:  |
           go get github.com/coreos/go-semver
