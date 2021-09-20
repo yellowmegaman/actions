@@ -24,7 +24,6 @@ jobs:
       - name: Run my private action
         uses: ./gitops/actions/k3s-gha
         with:
-          repo: emik0
           k3s_version: "v1.22.2-rc1+k3s1"
       - name: check
         run:  kubectl get all --all-namespaces
