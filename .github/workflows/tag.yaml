@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
+      - name: get helm 3.6.3
+        run: |
+          curl -s https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz | tar xvz --strip-components 1
+          mv helm /usr/local/bin/helm
+          chmod +x /usr/local/bin/helm
       - name: check helm version
         run:  helm version
       - name: which helm
