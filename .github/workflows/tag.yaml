@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: get helm ${HELM_VERSION}
+      - name: get helm ${env.HELM_VERSION}
         run: |
           curl -s https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz | tar xvz --strip-components 1
           mv helm /usr/local/bin/helm
