@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+env:
+  HELM_VERSION: 3.6.3
 jobs:
   gcs-release:
     name: release
@@ -13,9 +15,9 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: get helm 3.6.3
+      - name: get helm ${HELM_VERSION}
         run: |
-          curl -s https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz | tar xvz --strip-components 1
+          curl -s https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz | tar xvz --strip-components 1
           mv helm /usr/local/bin/helm
           chmod +x /usr/local/bin/helm
       - name: check helm version
