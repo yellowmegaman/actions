@@ -1,51 +1,16 @@
 name: release-deployment
 on:
-  pull_request:
   push:
-    branches:
-      - main
-env:
-  HELM_VERSION: 3.6.3
+    tags:
+      - '*'
 jobs:
   gcs-release:
     name: release
     runs-on: ubuntu-latest
     env:
-      GO111MODULE: auto
+      REPOS: [a b c d]
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: get helm ${env.HELM_VERSION}
-        run: |
-          curl -s https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz | tar xvz --strip-components 1
-          mv helm /usr/local/bin/helm
-          chmod +x /usr/local/bin/helm
-      - name: check helm version
-        run:  helm version
-      - name: which helm
-        run:  which helm
-      - name: checkout gitops repo
-        uses: actions/checkout@v2
-        with:
-          repository: worldr/gitops
-          path: gitops
-          token: ${{ secrets.DELETE_ME }}
-      - name: check gitops
-        run: ls gitops
-      - name: run k3s
-        uses: ./gitops/actions/k3s-gha
-        with:
-          k3s_version: "v1.22.2-rc1+k3s1"
-      - name: check
-        run:  kubectl get all --all-namespaces
-      - name: plan
-        run:  |
-          go get github.com/coreos/go-semver
-          go run tools/bump.go 1.2.4 patch
-          go run tools/bump.go 1.2.4 minor
-          go run tools/bump.go 1.2.4 major
-      - name: debug
-        run: echo ${{github.ref}}
-      - name: apply
-        if:  ${{ github.ref == 'refs/heads/main'}}
-        run: echo "apply!"
+      - name: set tag env
+        run:  for i in $REPOS; do echo $i; done
