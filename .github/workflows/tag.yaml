@@ -13,13 +13,12 @@ jobs:
       - name: checkout gitops
         uses: actions/checkout@master
         with:
-          repository: worldr/gitops
+          repository: yellowmegaman/golaunch
           path: swiss
           token: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
-          repo: "yellowmegaman/golaunch"
           token: ${{secrets.TKN}}
           change: "echo $(date) | tee date.txt"
           title: "dummy"
