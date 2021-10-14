@@ -15,7 +15,7 @@ jobs:
         with:
           repository: worldr/gitops
           path: gitops
-          ssh-key: "${{secrets.TKN}}"
+          token: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
