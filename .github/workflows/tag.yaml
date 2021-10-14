@@ -14,12 +14,13 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: worldr/gitops
-          path: gitops
+          path: swiss
           token: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
           token: ${{secrets.TKN}}
-          change: "echo $(date) | tee check/date.txt"
+          change: "echo $(date) | tee date.txt"
           title: "dummy"
           body: "dummy"
+          working_directory: "swiss"
