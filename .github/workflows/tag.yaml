@@ -14,3 +14,5 @@ jobs:
         uses: actions/checkout@master
       - name: set tag env
         run:  for i in $REPOS; do echo $i; done
+      - name: check gh
+        run:  gh version
