@@ -16,4 +16,4 @@ jobs:
         run:  for i in $REPOS; do echo $i; done
       - name: check gh
         run:  gh version
-      - run:  evn | sort
+      - run:  env | sort
