@@ -10,11 +10,16 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
+      - name: checkout gitops
+        uses: actions/checkout@master
+        with:
+          repository: worldr/gitops
+          path: gitops
+          ssh-key: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
           token: ${{secrets.TKN}}
-          clone_path: "check"
           change: "echo $(date) | tee check/date.txt"
           title: "dummy"
           body: "dummy"
