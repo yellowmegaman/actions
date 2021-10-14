@@ -11,7 +11,7 @@ jobs:
       - name: checkout code
         uses: actions/checkout@master
       - name: pr-donwstream
-        uses: yellowmegaman/pr-downstream
+        uses: yellowmegaman/pr-downstream@main
         with:
           token: ${{secrets.TKN}}
           clone_path: "check"
