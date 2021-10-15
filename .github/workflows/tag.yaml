@@ -10,19 +10,19 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: checkout gitops
-        uses: actions/checkout@master
-        with:
-          repository: worldr/gitops
-          path: swiss
-          token: "${{secrets.TKN}}"
+#      - name: checkout gitops
+#        uses: actions/checkout@master
+#        with:
+#          repository: worldr/gitops
+#          path: swiss
+#          token: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
           token: ${{secrets.TKN}}
           change: "echo $(date) | tee date.txt"
           title: "title text"
-          body: "sometext description\nokay"
-          pr_branch: "hello1"
+          body: "sometext description"
+          pr_branch: "hello2"
           target_branch: "master"
-          working_directory: "swiss"
+          working_directory: "swisszz"
