@@ -21,13 +21,15 @@ jobs:
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
           echo "::set-output name=changelog::$changelog"
+      - name: debug body
+        run:  echo "${{ steps.changelog.outputs.changelog }}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
           change: "echo $(date) | tee date.txt && ls"
           title: "title text"
           body: "${{ steps.changelog.outputs.changelog }}"
-          pr_branch: "hello3"
+          pr_branch: "hello4"
           target_branch: "master"
           working_directory: "swisszzzzz"
       - name: check env
