@@ -14,14 +14,14 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: yellowmegaman/golaunch
-          path: swiss
+          path: squish
           token: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
           token: ${{secrets.TKN}}
           change: "echo $(date) | tee date.txt"
-          title: "dummy"
-          body: "dummy"
-          working_directory: "swiss"
-          branch: "wowow2"
+          title: "new"
+          body: "new"
+          working_directory: "squish"
+          branch: "wowow3"
