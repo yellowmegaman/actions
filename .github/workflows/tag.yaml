@@ -17,5 +17,5 @@ jobs:
           change: "echo $(date) | tee date.txt"
           title: "title text"
           body: "sometext description\nokay"
-          pr_branch: "haha"
+          pr_branch: "hahazz"
           target_branch: "master"
