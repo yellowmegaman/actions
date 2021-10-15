@@ -24,4 +24,4 @@ jobs:
           title: "new"
           body: "new"
           working_directory: "squish"
-          branch: "wowow4"
+          branch: "wowow5"
