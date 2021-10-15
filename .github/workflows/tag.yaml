@@ -23,6 +23,6 @@ jobs:
           change: "echo $(date) | tee date.txt"
           title: "title text"
           body: "sometext description\nokay"
-          pr_branch: "hahzzazz"
+          pr_branch: "hello0"
           target_branch: "master"
           working_directory: "swiss"
