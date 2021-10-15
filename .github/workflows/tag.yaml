@@ -20,5 +20,3 @@ jobs:
           pr_branch: "hello5"
           target_branch: "master"
           working_directory: "swisszzzzz"
-      - name: check env
-        run:  env | sort
