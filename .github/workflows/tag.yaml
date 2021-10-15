@@ -6,7 +6,7 @@ jobs:
     name: release
     runs-on: ubuntu-latest
     env:
-      REPOS: a b c d
+      GH_TOKEN: ${{secrets.TKN}}
     steps:
       - name: checkout code
         uses: actions/checkout@master
@@ -19,10 +19,9 @@ jobs:
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
-          token: ${{secrets.TKN}}
-          change: "echo $(date) | tee date.txt"
+          change: "echo $(date) | tee date.txt && ls"
           title: "title text"
           body: "sometext description"
           pr_branch: "hello2"
           target_branch: "master"
-          working_directory: "swisszz"
+          working_directory: "swisszzzzz"
