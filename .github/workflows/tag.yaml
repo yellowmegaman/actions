@@ -10,18 +10,12 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: checkout gitops
-        uses: actions/checkout@master
-        with:
-          repository: yellowmegaman/golaunch
-          path: squish
-          token: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
           token: ${{secrets.TKN}}
           change: "echo $(date) | tee date.txt"
-          title: "new"
-          body: "new"
-          working_directory: "squish"
-          branch: "wowow5"
+          title: "title text"
+          body: "sometext description\nokay"
+          pr_branch: "haha"
+          target_branch: "master"
