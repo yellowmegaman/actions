@@ -16,12 +16,8 @@ jobs:
         id: changelog
         run: |
           git fetch --depth=100
-          changelog=$(echo $(git --no-pager log $(git describe --abbrev=0 --tags $(git describe --abbrev=0 --tags)^)..$(git describe --abbrev=0 --tags) --pretty=format:"%an %s") | base64 -w0)
+          changelog=$(git --no-pager log $(git describe --abbrev=0 --tags $(git describe --abbrev=0 --tags)^)..$(git describe --abbrev=0 --tags) --pretty=format:"%an %s")
           echo "::set-output name=changelog::$changelog"
-      - name: debug body
-        run:  echo "${{ steps.changelog.outputs.changelog }}"
-      - name: debug gh
-        run:  gh pr list -B main -s closed --json 'title,createdAt,url'
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
