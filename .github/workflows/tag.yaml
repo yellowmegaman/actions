@@ -1,8 +1,8 @@
 name: release-deployment
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*'
 jobs:
   gcs-release:
     name: release
