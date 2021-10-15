@@ -15,6 +15,7 @@ jobs:
       - name: changelog
         id: changelog
         run: |
+          git fetch --depth=100
           changelog=$(echo $(git --no-pager log $(git describe --abbrev=0 --tags $(git describe --abbrev=0 --tags)^)..$(git describe --abbrev=0 --tags) --pretty=format:"%%an %s") | base64 -w0)
           echo "::set-output name=changelog::$changelog"
       - name: debug body
