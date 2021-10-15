@@ -15,11 +15,7 @@ jobs:
       - name: changelog
         id: changelog
         run: |
-          time=$(git log -1 --date=short --format=%ai $(git log --oneline $(git show-ref --tags |tail -2 |head -1|awk '{print $1}')..@|tail -1|awk '{print $1}')|sed 's/ /T/g' )
-          changelog=$(gh pr list -B main -s closed --json 'title,createdAt,url'  -q ".[]|select(.createdAt >= \"$time\")" | jq -r '[ .title, .url]|@tsv')
-          changelog="${changelog//'%'/'%25'}"
-          changelog="${changelog//$'\n'/'%0A'}"
-          changelog="${changelog//$'\r'/'%0D'}"
+          changelog=$(echo $(git --no-pager log $(git describe --abbrev=0 --tags $(git describe --abbrev=0 --tags)^)..$(git describe --abbrev=0 --tags) --pretty=format:"%%an %s") | base64 -w0)
           echo "::set-output name=changelog::$changelog"
       - name: debug body
         run:  echo "${{ steps.changelog.outputs.changelog }}"
