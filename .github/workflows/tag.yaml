@@ -24,4 +24,4 @@ jobs:
           title: "dummy"
           body: "dummy"
           working_directory: "swiss"
-          branch: "wowow"
+          branch: "wowow0"
