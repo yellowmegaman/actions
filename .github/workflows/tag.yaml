@@ -1,6 +1,8 @@
 name: release-deployment
 on:
   push:
+    branches:
+      - main
 jobs:
   gcs-release:
     name: release
@@ -10,12 +12,6 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-#      - name: checkout gitops
-#        uses: actions/checkout@master
-#        with:
-#          repository: worldr/gitops
-#          path: swiss
-#          token: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
@@ -25,3 +21,5 @@ jobs:
           pr_branch: "hello2"
           target_branch: "master"
           working_directory: "swisszzzzz"
+      - name: check env
+        run:  env | sort
