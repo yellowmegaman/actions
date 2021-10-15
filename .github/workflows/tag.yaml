@@ -12,19 +12,12 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: changelog
-        id: changelog
-        run: |
-          git fetch --depth=100
-          changelog=$(git --no-pager log $(git describe --abbrev=0 --tags $(git describe --abbrev=0 --tags)^)..$(git describe --abbrev=0 --tags) --pretty=format:"%an %s")
-          echo "::set-output name=changelog::$changelog"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
           change: "echo $(date) | tee date.txt && ls"
           title: "title text"
-          body: "${{ steps.changelog.outputs.changelog }}"
-          pr_branch: "hello4"
+          pr_branch: "hello5"
           target_branch: "master"
           working_directory: "swisszzzzz"
       - name: check env
