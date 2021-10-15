@@ -10,6 +10,12 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
+      - name: checkout gitops
+        uses: actions/checkout@master
+        with:
+          repository: worldr/gitops
+          path: swiss
+          token: "${{secrets.TKN}}"
       - name: pr-donwstream
         uses: yellowmegaman/pr-downstream@master
         with:
@@ -19,3 +25,4 @@ jobs:
           body: "sometext description\nokay"
           pr_branch: "hahazz"
           target_branch: "master"
+          working_directory: "swiss"
