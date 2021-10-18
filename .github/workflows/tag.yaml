@@ -2,7 +2,8 @@ name: release-deployment
 on:
   push:
     tags:
-      - '*'
+env:
+  KUBEVAL_VERSION: 0.16.1
 jobs:
   gcs-release:
     name: release
@@ -13,11 +14,15 @@ jobs:
       - name: checkout code
         uses: actions/checkout@master
       - name: yamllint
-        run:  yamllint --version
+        run:  yamllint --xversion
       - name: path
         run: echo $PATH
-#      - name: kubeval
-#        run: kubeval --version
+      - name: get kubeval
+        run: |
+          curl -L -s --create-dirs https://github.com/instrumenta/kubeval/releases/download/$KUBEVAL_VERSION/kubeval-linux-amd64.tar.gz | tar xvz --exclude='LICENSE' --exclude='README.md' -C $GITHUB_WORKSPACE/.local/bin
+          chmod +x $GITHUB_WORKSPACE/.local/bin/kubeval
+      - name: kubeval
+        run: kubeval --version
 #      - name: pr-donwstream
 #        uses: yellowmegaman/pr-downstream@master
 #        with:
