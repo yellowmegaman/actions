@@ -19,7 +19,7 @@ jobs:
         run: echo $PATH
       - name: get kubeval
         run: |
-          curl -L -s --create-dirs https://github.com/instrumenta/kubeval/releases/download/$KUBEVAL_VERSION/kubeval-linux-amd64.tar.gz | tar xvz --exclude='LICENSE' --exclude='README.md' -C $GITHUB_WORKSPACE/.local/bin
+          curl --create-dirs -L -s --create-dirs https://github.com/instrumenta/kubeval/releases/download/$KUBEVAL_VERSION/kubeval-linux-amd64.tar.gz | tar xvz --exclude='LICENSE' --exclude='README.md' -C $GITHUB_WORKSPACE/.local/bin
           chmod +x $GITHUB_WORKSPACE/.local/bin/kubeval
       - name: kubeval
         run: kubeval --version
