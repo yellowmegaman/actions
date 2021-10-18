@@ -14,6 +14,8 @@ jobs:
         uses: actions/checkout@master
       - name: yamllint
         run:  yamllint --version
+      - name: kubeval
+        run: kubeval --version
 #      - name: pr-donwstream
 #        uses: yellowmegaman/pr-downstream@master
 #        with:
