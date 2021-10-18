@@ -16,7 +16,7 @@ jobs:
       - name: yamllint
         run:  yamllint --version
       - name: path
-        run: echo $PATH
+        run: echo $PATH && echo $GITHUB_WORKSPACE
       - name: get kubeval
         run: |
           mkdir -p $GITHUB_WORKSPACE/.local/bin
