@@ -9,8 +9,6 @@ jobs:
   gcs-release:
     name: release
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{secrets.TKN}}
     steps:
       - name: checkout code
         uses: actions/checkout@master
@@ -19,3 +17,5 @@ jobs:
         with:
           change: "echo $(date) | tee date.txt && ls"
           target_branch: "master"
+        env:
+          GH_TOKEN: ${{secrets.TKN}}
