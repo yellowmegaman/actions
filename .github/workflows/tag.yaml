@@ -13,20 +13,11 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: yamllint
-        run:  yamllint --version
-      - name: get kubeval
-        run: |
-          mkdir -p /home/runner/.local/bin
-          curl -L -s https://github.com/instrumenta/kubeval/releases/download/$KUBEVAL_VERSION/kubeval-linux-amd64.tar.gz | tar xvz --exclude='LICENSE' --exclude='README.md' -C /home/runner/.local/bin
-          chmod +x /home/runner/.local/bin/kubeval
-      - name: kubeval
-        run: kubeval --version
-#      - name: pr-donwstream
-#        uses: yellowmegaman/pr-downstream@master
-#        with:
-#          change: "echo $(date) | tee date.txt && ls"
-#          title: "title text"
-#          pr_branch: "hello5"
-#          target_branch: "master"
-#          working_directory: "swisszzzzz"
+      - name: pr-donwstream
+        uses: yellowmegaman/pr-downstream@master
+        with:
+          change: "echo $(date) | tee date.txt && ls"
+          title: "title text"
+          pr_branch: "hello5"
+          target_branch: "master"
+          working_directory: "swisszzzzz"
