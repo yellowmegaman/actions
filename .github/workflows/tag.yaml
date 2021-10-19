@@ -2,6 +2,7 @@ name: release-deployment
 on:
   push:
     tags:
+      - '*'
 env:
   KUBEVAL_VERSION: v0.16.1
 jobs:
