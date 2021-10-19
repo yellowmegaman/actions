@@ -18,7 +18,4 @@ jobs:
         uses: yellowmegaman/pr-downstream@master
         with:
           change: "echo $(date) | tee date.txt && ls"
-          title: "title text"
-          pr_branch: "hello5"
           target_branch: "master"
-          working_directory: "swisszzzzz"
