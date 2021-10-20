@@ -13,9 +13,9 @@ jobs:
       - name: checkout code
         uses: actions/checkout@master
       - name: pr-donwstream
-        uses: yellowmegaman/pr-downstream@master
+        uses: worldr/pr-downstream@main
         with:
           change: "echo $(date) | tee date.txt && ls"
-          target_branch: "master"
+          repo: "yellowmegaman/gitops-template"
         env:
           GH_TOKEN: ${{secrets.TKN}}
