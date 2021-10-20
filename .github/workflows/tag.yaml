@@ -17,5 +17,6 @@ jobs:
         with:
           change: "echo $(date) | tee date.txt && ls"
           repo: "yellowmegaman/gitops-template"
+          skip_release: true
         env:
           GH_TOKEN: ${{secrets.TKN}}
