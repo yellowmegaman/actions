@@ -5,6 +5,7 @@ on:
       - '*'
 env:
   KUBEVAL_VERSION: v0.16.1
+  GH_TOKEN: ${{secrets.TKN}}
 jobs:
   gcs-release:
     name: release
@@ -17,5 +18,3 @@ jobs:
         with:
           change: "echo $(date) | tee date.txt && ls"
           repo: "yellowmegaman/gitops-template"
-        env:
-          GH_TOKEN: ${{secrets.TKN}}
