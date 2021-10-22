@@ -10,7 +10,9 @@ jobs:
       - name: checkout code
         uses: actions/checkout@master
       - name: tag
-        run: git rev-list --tags --max-count=1
+        run: |
+          git fetch --depth=100
+          git rev-list --tags --max-count=1
       - name: tag
         id: tag
         run: |
