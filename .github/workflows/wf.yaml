@@ -1,0 +1,22 @@
+name: workflow-release
+on: workflow_dispatch
+jobs:
+  workflow-release:
+    name: release
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: auto
+    steps:
+      - name: checkout code
+        uses: actions/checkout@master
+      - name: tag
+        id: tag
+        run: |
+          go get github.com/coreos/go-semver
+          git fetch --depth=100
+          tag_current="$(git describe --abbrev=0 --tags)"
+          tag_previous=$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1  --max-count=1`)
+          tag_bumped="$(go run tools/bump.go $tag_current patch)"
+          echo "::set-output name=current::$tag_current"
+          echo "::set-output name=previous::$tag_previous"
+          echo "::set-output name=bumped::$tag_bumped"
