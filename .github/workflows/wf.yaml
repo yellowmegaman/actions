@@ -9,20 +9,5 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: tag
-        run: |
-          git fetch --depth=100
-          git rev-list --tags --max-count=1
-      - name: tag
-        id: tag
-        run: |
-          go get github.com/coreos/go-semver
-          git fetch --depth=100
-          echo "Starting"
-          git describe --abbrev=0 --tags
-          tag_current="$(git describe --abbrev=0 --tags)"
-          tag_previous=$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1  --max-count=1`)
-          tag_bumped="$(go run tools/bump.go $tag_current patch)"
-          echo "::set-output name=current::$tag_current"
-          echo "::set-output name=previous::$tag_previous"
-          echo "::set-output name=bumped::$tag_bumped"
+      - name: env
+        run: env | sort
