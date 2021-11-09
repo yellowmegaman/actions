@@ -1,11 +1,6 @@
 name: release-deployment
 on:
   push:
-    tags:
-      - '*'
-env:
-  KUBEVAL_VERSION: v0.16.1
-  HELM_VERSION: 3.6.3
 jobs:
   gcs-release:
     name: release
@@ -13,10 +8,5 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: get helm
-        run: |
-          curl -s https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz | tar xvz --strip-components 1
-          mv helm /usr/local/bin/helm
-          chmod +x /usr/local/bin/helm
-      - name: debug helm 3.6.3
-        run:  helm package --help
+      - name: env
+        run: env | sort
