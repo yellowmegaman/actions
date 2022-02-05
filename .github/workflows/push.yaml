@@ -7,5 +7,3 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: kubectl version
-        run:  kubectl version
