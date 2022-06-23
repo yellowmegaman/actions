@@ -1,6 +1,9 @@
 name: tag-to-docker
 on:
   pull_request:
+  push:
+    branches:
+      - main
 env:
   REGISTRY_HOST: "eu.gcr.io"
   REGISTRY_PATH: "ccc"
@@ -12,3 +15,9 @@ jobs:
         uses: actions/checkout@master
       - name: get info
         run: env | sort
+      - name: deploy beta
+        if: ${{github.event_name == 'pull_request'}}
+        run: echo BETA ${GITHUB_HEAD_REF}
+      - name: deploy prod
+        if: ${{github.ref == 'refs/heads/main' && github.event_name == 'push'}}
+        run: echo PROD ${GITHUB_HEAD_REF}
