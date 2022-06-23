@@ -20,4 +20,4 @@ jobs:
         run: echo BETA ${GITHUB_HEAD_REF}
       - name: deploy prod
         if: ${{github.ref == 'refs/heads/main' && github.event_name == 'push'}}
-        run: echo PROD ${GITHUB_HEAD_REF}
+        run: echo PROD ${GITHUB_SHA}
