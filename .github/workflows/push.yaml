@@ -17,7 +17,7 @@ jobs:
         run: env | sort
       - name: deploy beta
         if: ${{github.event_name == 'pull_request'}}
-        run: echo BETA ${GITHUB_HEAD_REF}
+        run: echo BETA ${GITHUB_SHA}
       - name: deploy prod
         if: ${{github.ref == 'refs/heads/main' && github.event_name == 'push'}}
         run: echo PROD ${GITHUB_SHA}
