@@ -1,23 +1,17 @@
+---
 name: tag-to-docker
 on:
   pull_request:
   push:
     branches:
       - main
-env:
-  REGISTRY_HOST: "eu.gcr.io"
-  REGISTRY_PATH: "ccc"
 jobs:
-  build-push:
+  hello_world_job:
     runs-on: ubuntu-latest
+    name: A job to say hello
     steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-      - name: get info
-        run: env | sort
-      - name: deploy beta
-        if: ${{github.event_name == 'pull_request'}}
-        run: echo BETA ${GITHUB_SHA}
-      - name: deploy prod
-        if: ${{github.ref == 'refs/heads/main' && github.event_name == 'push'}}
-        run: echo PROD ${GITHUB_SHA}
+      - uses: actions/checkout@v3
+      - name: Run custom action
+        uses: ./.github/actions/build-push-deploy
+        with:
+          who-to-greet: haha
