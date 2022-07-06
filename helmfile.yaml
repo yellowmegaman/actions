@@ -1,0 +1,58 @@
+repositories:
+  # Add the Jetstack Helm repository
+  - name: jetstack
+    url: "https://charts.jetstack.io"
+
+helmDefaults:
+  atomic: true
+  createNamespace: true
+  cleanupOnFail: true
+  timeout: 300
+  wait: true
+  output: json
+
+releases:
+- name: "cert-manager"
+  namespace: "cert-manager"
+  labels:
+    chart: "cert-manager"
+    namespace: "cert-manager"
+  chart: "jetstack/cert-manager"
+  version: v1.8.2
+  hooks:
+  - events: ["postsync"]
+    # Give cert-manager time to initialize itself
+    showlogs: true
+    command: "/bin/sleep"
+    args: ["15"]
+  values:
+    - fullnameOverride: cert-manager
+      rbac:
+        create: true
+      # According to cert-manager docs, install_crds does not work with helm 3.3
+      installCRDs: true
+      ingressShim:
+        # defaultACMEChallengeType: ""
+        # defaultACMEDNS01ChallengeProvider: ""
+      serviceAccount:
+        create: true
+        name: "cert-manager"
+        # https://github.com/jetstack/cert-manager/blob/master/deploy/charts/cert-manager/templates/serviceaccount.yaml
+        annotations:
+      securityContext:
+        enabled: true
+        fsGroup: 1001
+        runAsGroup: 1001
+      prometheus:
+        enabled: false
+        servicemonitor:
+          enabled: false
+          prometheusInstance: default
+          targetPort: 9402
+          path: /metrics
+          interval: 60s
+          scrapeTimeout: 30s
+      webhook:
+        enabled: true
+      cainjector:
+        enabled: true
