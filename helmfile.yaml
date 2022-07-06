@@ -9,7 +9,6 @@ helmDefaults:
   cleanupOnFail: true
   timeout: 300
   wait: true
-  output: json
 
 releases:
 - name: "cert-manager"
