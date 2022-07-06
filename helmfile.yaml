@@ -11,6 +11,11 @@ helmDefaults:
   wait: true
 
 releases:
+- name: loki
+  namespace: loki
+  chart: grafana/loki-stack
+  values:
+    - https://storage.googleapis.com/worldr-install/promtail_v1.0.2.yaml
 - name: "cert-manager"
   namespace: "cert-manager"
   labels:
