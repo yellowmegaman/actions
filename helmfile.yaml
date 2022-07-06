@@ -17,6 +17,11 @@ releases:
   chart: grafana/loki-stack
   values:
     - address: https://storage.googleapis.com/worldr-install/promtail_v1.0.2.yaml
+  hooks:
+  - events: ["prepare"]
+    showlogs: true
+    command: kubectl
+    args: [ "create", "ns",  "{{`{{ .Release.Namespace }}`}}" ]
 - name: "cert-manager"
   namespace: "cert-manager"
   labels:
