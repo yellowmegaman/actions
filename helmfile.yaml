@@ -14,6 +14,7 @@ helmDefaults:
 releases:
 - name: loki
   namespace: loki
+  createNamespace: true
   labels:
     chart: "loki"
     namespace: "loki"
