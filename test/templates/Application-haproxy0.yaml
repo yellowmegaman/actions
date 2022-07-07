@@ -15,7 +15,7 @@ spec:
       - CreateNamespace=true
   source:
     repoURL: https://github.com/haproxytech/helm-charts.git
-    targetRevision: haproxy-1.12.0
+    targetRevision: haproxy-1.12.0kkk
     path: haproxy
     helm:
       releaseName: haproxy
