@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: haproxy0
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+  source:
+    repoURL: https://github.com/haproxytech/helm-charts.git
+    targetRevision: HEAD
+    path: haproxy
+    helm:
+      releaseName: haproxy
+      parameters:
+      - name: "haproxy.extraEnvs[0].name"
+        value: "DOMAIN"
+  destination:
+    name: 'in-cluster'
+    namespace: haproxy0
