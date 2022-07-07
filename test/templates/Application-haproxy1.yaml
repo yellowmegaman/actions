@@ -15,7 +15,7 @@ spec:
       - CreateNamespace=true
   source:
     repoURL: https://github.com/haproxytech/helm-charts.git
-    targetRevision: kubernetes-ingress-1.22.3
+    targetRevision: haproxy-1.12.0
     path: haproxy
     helm:
       releaseName: haproxy
