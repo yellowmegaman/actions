@@ -38,8 +38,8 @@ spec:
           - name: ARGOCD_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: argocd-secret
-                key: "admin.password"
+                name: argocd-initial-admin-secret
+                key: "password"
         volumeMounts:
           - name: sync-rollback-{{ .Release.Name }}
             mountPath: /bin/sync-rollback.sh
