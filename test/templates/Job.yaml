@@ -50,6 +50,6 @@ spec:
       volumes:
         - name: sync-rollback-{{ .Release.Name }}
           configMap:
-            defaultMode: 0700
+            defaultMode: 0755
             name: sync-rollback-{{ .Release.Name }}
-  backoffLimit: 2
+  backoffLimit: 0
