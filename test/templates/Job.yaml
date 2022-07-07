@@ -6,7 +6,7 @@ metadata:
   namespace: {{.Release.Namespace}}
 data:
   sync-rollback.sh: |-
-    #!/bin/ash
+    #!/bin/bash
     apk --update add jq curl
     curl -o /usr/local/bin/argocd -sLO "https://github.com/argoproj/argo-cd/releases/download/$ARGOCD_CLI_VERSION/argocd-linux-amd64"
     argocd login --plaintext --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD
