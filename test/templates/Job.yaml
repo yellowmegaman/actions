@@ -27,7 +27,8 @@ spec:
       containers:
       - name: slack-notification
         image: argoproj/argocd:v2.4.4
-        command: ["/bin/sync-rollback.sh"]
+        command: ["bash"]
+        args: ["/bin/sync-rollback.sh"]
         env:
           - name: ARGOCD_APPLICATION
             value: "{{ .Release.Name }}"
