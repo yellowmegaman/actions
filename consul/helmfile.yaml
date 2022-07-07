@@ -1,0 +1,31 @@
+repositories:
+  - name: hashicorp
+    url: "https://helm.releases.hashicorp.com"
+
+releases:
+- name: consul0
+  namespace: "consul0"
+  chart: "hashicorp/consul"
+  version: v0.45.0
+  atomic: true
+  createNamespace: true
+  timeout: 300
+  wait: true
+  set:
+    - name: 'server.replicas'
+      value: '1'
+    - name: 'client.enabled'
+      value: 'false'
+- name: consul1
+  namespace: "consul1"
+  chart: "hashicorp/consul"
+  version: v0.45.0
+  atomic: true
+  createNamespace: true
+  timeout: 300
+  wait: true
+  set:
+    - name: 'server.replicas'
+      value: '1'
+    - name: 'client.enabled'
+      value: 'false'
