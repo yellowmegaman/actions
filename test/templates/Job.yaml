@@ -1,4 +1,18 @@
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sync-rollback-{{ .Release.Name }}
+  namespace: argocd
+data:
+  sync-rollback.sh: |-
+    #!/bin/ash
+    apk --update add jq curl
+    curl -o /usr/local/bin/argocd -sLO "https://github.com/argoproj/argo-cd/releases/download/$ARGOCD_CLI_VERSION/argocd-linux-amd64"
+    argocd login --plaintext --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD
+    argocd app wait --health --timeout 20 $ARGOCD_APPLICATION || argocd app rollback $ARGOCD_APPLICATION $(argocd app set --sync-policy none $ARGOCD_APPLICATION; argocd app history helm-test -o id | sed -n 'x;$p')
+    
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -11,9 +25,31 @@ spec:
     spec:
       containers:
       - name: slack-notification
-        image: curlimages/curl
+        image: argoproj/argocd:v2.4.4
         command:
           - "echo"
           - "sync done"
+        env:
+          - name: ARGOCD_APPLICATION
+            value: "{{ .Release.Name }}"
+          - name: ARGOCD_CLI_VERSION
+            value: "v2.4.4"
+          - name: ARGOCD_USERNAME
+            value: "admin"
+          - name: ARGOCD_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: argocd-secret
+                key: "admin.password"
+        volumeMounts:
+          - name: sync-rollback-{{ .Release.Name }}
+            mountPath: /bin/sync-rollback.sh
+            readOnly: true
+            subPath: sync-rollback.sh
       restartPolicy: Never
+      volumes:
+        - name: sync-rollback-{{ .Release.Name }}
+          configMap:
+            defaultMode: 0700
+            name: sync-rollback-{{ .Release.Name }}
   backoffLimit: 2
