@@ -1,0 +1,19 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: sync-
+  annotations:
+    argocd.argoproj.io/hook: Sync
+  namespace: argocd
+spec:
+  template:
+    spec:
+      containers:
+      - name: slack-notification
+        image: curlimages/curl
+        command:
+          - "echo"
+          - "sync done"
+      restartPolicy: Never
+  backoffLimit: 2
