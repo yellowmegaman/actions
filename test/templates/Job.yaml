@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sync-rollback-{{ .Release.Name }}
-  namespace: argocd
+  namespace: {{.Release.Namespace}}
 data:
   sync-rollback.sh: |-
     #!/bin/ash
@@ -19,7 +19,8 @@ metadata:
   generateName: sync-
   annotations:
     argocd.argoproj.io/hook: Sync
-  namespace: argocd
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  namespace: {{.Release.Namespace}}
 spec:
   template:
     spec:
