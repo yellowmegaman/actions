@@ -5,3 +5,10 @@ metadata:
   name: consul1
   labels:
     kubernetes.io/metadata.name: consul1
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: consul0
+  labels:
+    kubernetes.io/metadata.name: consul0
