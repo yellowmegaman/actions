@@ -9,7 +9,7 @@ data:
     #!/bin/bash
     apk --update add jq curl
     curl -o /usr/local/bin/argocd -sLO "https://github.com/argoproj/argo-cd/releases/download/$ARGOCD_CLI_VERSION/argocd-linux-amd64"
-    argocd login --plaintext --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD
+    argocd login argocd-server.argocd --plaintext --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD
     argocd app wait --health --timeout 20 $ARGOCD_APPLICATION || argocd app rollback $ARGOCD_APPLICATION $(argocd app set --sync-policy none $ARGOCD_APPLICATION; argocd app history helm-test -o id | sed -n 'x;$p')
     
 ---
