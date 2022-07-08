@@ -6,7 +6,7 @@ releases:
 - name: consul0
   namespace: "consul0"
   chart: "hashicorp/consul"
-  version: v0.45.0
+  version: v0.42.0
   atomic: true
   createNamespace: true
   timeout: 300
@@ -19,7 +19,7 @@ releases:
 - name: consul1
   namespace: "consul1"
   chart: "hashicorp/consul"
-  version: v0.45.0
+  version: v0.42.0
   atomic: true
   createNamespace: true
   timeout: 300
