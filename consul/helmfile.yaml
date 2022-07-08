@@ -6,7 +6,7 @@ releases:
 - name: consul0
   namespace: "consul0"
   chart: "hashicorp/consul"
-  version: v0.42.0
+  version: v0.44.0
   atomic: true
   createNamespace: true
   timeout: 300
@@ -29,5 +29,5 @@ releases:
       value: '1'
     - name: 'client.enabled'
       value: 'false'
-#    - name: 'server.image'
-#      value: 'hashicorp/consul:1.12.2aa'
+    - name: 'server.image'
+      value: 'hashicorp/consul:1.12.2aa'
