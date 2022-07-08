@@ -12,3 +12,59 @@ metadata:
   name: consul0
   labels:
     kubernetes.io/metadata.name: consul0
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sync-rollback-{{ .Release.Name }}
+  namespace: {{.Release.Namespace}}
+data:
+  sync-rollback.sh: |-
+    #!/bin/bash
+    argocd login argocd-server.argocd --plaintext --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD
+    if ! argocd app wait --health --timeout 20 $ARGOCD_APPLICATION; then
+      argocd app terminate-op $ARGOCD_APPLICATION || true
+      argocd app rollback $ARGOCD_APPLICATION $(argocd app set --sync-policy none $ARGOCD_APPLICATION; argocd app history helm-test -o id | tail -n1)
+    fi    
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: sync-
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    #argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  namespace: {{.Release.Namespace}}
+spec:
+  template:
+    spec:
+      containers:
+      - name: slack-notification
+        image: argoproj/argocd:v2.4.4
+        command: ["bash"]
+        args: ["-c", "/bin/sync-rollback.sh"]
+        env:
+          - name: ARGOCD_APPLICATION
+            value: "{{ .Release.Name }}"
+          - name: ARGOCD_CLI_VERSION
+            value: "v2.4.4"
+          - name: ARGOCD_USERNAME
+            value: "admin"
+          - name: ARGOCD_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: argocd-initial-admin-secret
+                key: "password"
+        volumeMounts:
+          - name: sync-rollback-{{ .Release.Name }}
+            mountPath: /bin/sync-rollback.sh
+            readOnly: true
+            subPath: sync-rollback.sh
+      restartPolicy: Never
+      volumes:
+        - name: sync-rollback-{{ .Release.Name }}
+          configMap:
+            defaultMode: 0755
+            name: sync-rollback-{{ .Release.Name }}
+  backoffLimit: 0
