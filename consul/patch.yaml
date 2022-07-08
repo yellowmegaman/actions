@@ -23,7 +23,7 @@ data:
   sync-rollback.sh: |-
     #!/bin/bash
     argocd login argocd-server.argocd --plaintext --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD
-    if ! argocd app wait --health --timeout 20 $ARGOCD_APPLICATION; then
+    if ! argocd app wait --health --timeout $SYNC_TIMEOUT $ARGOCD_APPLICATION; then
       if ! argocd app terminate-op $ARGOCD_APPLICATION; then echo "no op running for $ARGOCD_APPLICATION"; fi
       argocd app set --sync-policy none $ARGOCD_APPLICATION
       argocd app rollback $ARGOCD_APPLICATION $(argocd app history helm-test -o id | tail -n1)
@@ -52,6 +52,8 @@ spec:
             value: "helm-test"
           - name: ARGOCD_CLI_VERSION
             value: "v2.4.4"
+          - name: SYNC_TIMEOUT
+            value: "180"
           - name: ARGOCD_USERNAME
             value: "admin"
           - name: ARGOCD_PASSWORD
