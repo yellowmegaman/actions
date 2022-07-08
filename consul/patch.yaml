@@ -17,7 +17,7 @@ metadata:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: sync-rollback-bundle
+  name: sync-rollback-helm-test
   namespace: argocd
 data:
   sync-rollback.sh: |-
@@ -46,7 +46,7 @@ spec:
         args: ["-c", "/bin/sync-rollback.sh"]
         env:
           - name: ARGOCD_APPLICATION
-            value: "bundle"
+            value: "helm-test"
           - name: ARGOCD_CLI_VERSION
             value: "v2.4.4"
           - name: ARGOCD_USERNAME
@@ -57,14 +57,14 @@ spec:
                 name: argocd-initial-admin-secret
                 key: "password"
         volumeMounts:
-          - name: sync-rollback-bundle
+          - name: sync-rollback-helm-test
             mountPath: /bin/sync-rollback.sh
             readOnly: true
             subPath: sync-rollback.sh
       restartPolicy: Never
       volumes:
-        - name: sync-rollback-bundle
+        - name: sync-rollback-helm-test
           configMap:
             defaultMode: 0755
-            name: sync-rollback-bundle
+            name: sync-rollback-helm-test
   backoffLimit: 0
