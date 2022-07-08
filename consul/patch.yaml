@@ -17,8 +17,8 @@ metadata:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: sync-rollback-{{ .Release.Name }}
-  namespace: {{.Release.Namespace}}
+  name: sync-rollback-bundle
+  namespace: argocd
 data:
   sync-rollback.sh: |-
     #!/bin/bash
@@ -35,7 +35,7 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: Sync
     #argocd.argoproj.io/hook-delete-policy: HookSucceeded
-  namespace: {{.Release.Namespace}}
+  namespace: argocd
 spec:
   template:
     spec:
@@ -46,7 +46,7 @@ spec:
         args: ["-c", "/bin/sync-rollback.sh"]
         env:
           - name: ARGOCD_APPLICATION
-            value: "{{ .Release.Name }}"
+            value: "bundle"
           - name: ARGOCD_CLI_VERSION
             value: "v2.4.4"
           - name: ARGOCD_USERNAME
@@ -57,14 +57,14 @@ spec:
                 name: argocd-initial-admin-secret
                 key: "password"
         volumeMounts:
-          - name: sync-rollback-{{ .Release.Name }}
+          - name: sync-rollback-bundle
             mountPath: /bin/sync-rollback.sh
             readOnly: true
             subPath: sync-rollback.sh
       restartPolicy: Never
       volumes:
-        - name: sync-rollback-{{ .Release.Name }}
+        - name: sync-rollback-bundle
           configMap:
             defaultMode: 0755
-            name: sync-rollback-{{ .Release.Name }}
+            name: sync-rollback-bundle
   backoffLimit: 0
