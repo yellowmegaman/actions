@@ -29,5 +29,5 @@ releases:
       value: '1'
     - name: 'client.enabled'
       value: 'false'
-#    - name: 'server.image'
-#      value: 'hashicorp/consul:1.12.2'
+    - name: 'server.image'
+      value: 'hashicorp/consul:1.12.2aa'
